@@ -3,6 +3,10 @@ from flask import Flask, jsonify, render_template
 app = Flask(__name__)
 
 @app.route('/')
+
+def hello():
+    return 'Hello from Flask!!!!'
+
 def home():
     return "Hello, Flask! 🚀"
 
@@ -10,6 +14,7 @@ def home():
 def about():
     return "This is the About page."
 
+mrashwini_new
 @app.route('/api')
 def api():
     data = {
@@ -19,6 +24,8 @@ def api():
         "features": ["Routing", "Branching", "Merge Conflict Resolution"]
     }
     return jsonify(data)
+
+main
 
 if __name__ == '__main__':
     app.run(debug=True)
