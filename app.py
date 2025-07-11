@@ -1,31 +1,33 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, request, jsonify, render_template
+from flask_pymongo import PyMongo
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-@app.route('/')
+# MongoDB connection
+app.config["MONGO_URI"] = "mongodb://localhost:27017/tododb"
+mongo = PyMongo(app)
 
-def hello():
-    return 'Hello from Flask!!!!'
+@app.route('/todo')
+def todo_page():
+    return render_template('todo.html')
 
-def home():
-    return "Hello, Flask! 🚀"
+@app.route('/submittodoitem', methods=['POST'])
+def submit_todo():
+    data = request.get_json()
+    item_name = data.get('itemName')
+    item_description = data.get('itemDescription')
 
-@app.route('/about')
-def about():
-    return "This is the About page."
+    if not item_name or not item_description:
+        return jsonify({'message': 'Both fields are required'}), 400
 
-mrashwini_new
-@app.route('/api')
-def api():
-    data = {
-        "name": "Ashwini",
-        "project": "Flask GitHub Integration",
-        "status": "In Progress",
-        "features": ["Routing", "Branching", "Merge Conflict Resolution"]
-    }
-    return jsonify(data)
+    mongo.db.todos.insert_one({
+        'itemName': item_name,
+        'itemDescription': item_description
+    })
 
-main
+    return jsonify({'message': 'Item stored successfully!'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
