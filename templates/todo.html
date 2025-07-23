@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+ HEAD
     <title>To-Do Page</title>
     <script>
         async function submitForm(event) {
@@ -31,5 +32,26 @@
 
         <input type="submit" value="Submit">
     </form>
+
+    <title>To-Do Form</title>
+</head>
+<body>
+    <h1>Simple To-Do Form</h1>
+    <form method="POST">
+        <label>Item ID:</label>
+        <input type="text" name="item_id" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if item_id %}
+        <p><strong>Item ID:</strong> {{ item_id }}</p>
+    {% endif %}
+    {% if item_uuid %}
+        <p><strong>Item UUID:</strong> {{ item_uuid }}</p>
+    {% endif %}
+    {% if item_hash %}
+        <p><strong>Item Hash:</strong> {{ item_hash }}</p>
+    {% endif %}
+ master_1
 </body>
 </html>
